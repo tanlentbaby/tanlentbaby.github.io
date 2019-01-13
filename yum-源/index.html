@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 
 
-  <html class="light page-archives201901">
+  <html class="light page-post">
 
 
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Archives: 2019/1 | TanlentBaby&#39;s Blog</title>
+  <title>yum 源 | TanlentBaby&#39;s Blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript">
+    <meta name="keywords" content="yum,">
   
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="TanlentBaby&#39;s Blog">
-<meta property="og:url" content="http://tanlent.coding.me/blog/archives/2019/01/index.html">
+  <meta name="description" content="切换阿里云yum源 CentOS7  12345678cd  /etc/yum.repos.d/wget  http://mirrors.aliyun.com/repo/Centos-7.repomv  CentOS-Base.repo CentOS-Base.repo.bakmv Centos-7.repo CentOS-Base.repoyum install yum-fastestmirro">
+<meta name="keywords" content="yum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yum 源">
+<meta property="og:url" content="http://tanlent.coding.me/blog/yum-源/index.html">
 <meta property="og:site_name" content="TanlentBaby&#39;s Blog">
+<meta property="og:description" content="切换阿里云yum源 CentOS7  12345678cd  /etc/yum.repos.d/wget  http://mirrors.aliyun.com/repo/Centos-7.repomv  CentOS-Base.repo CentOS-Base.repo.bakmv Centos-7.repo CentOS-Base.repoyum install yum-fastestmirro">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-13T15:29:07.776Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TanlentBaby&#39;s Blog">
+<meta name="twitter:title" content="yum 源">
+<meta name="twitter:description" content="切换阿里云yum源 CentOS7  12345678cd  /etc/yum.repos.d/wget  http://mirrors.aliyun.com/repo/Centos-7.repomv  CentOS-Base.repo CentOS-Base.repo.bakmv Centos-7.repo CentOS-Base.repoyum install yum-fastestmirro">
 
   
 
@@ -95,17 +100,8 @@ ga('send', 'pageview');
     <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
   
 
-  <div class="content content-archive">
-  <div class="page-header">
-
-  
-    <div class="breadcrumb">
-      <div class="location">博客</div>
-      <i class="icon-location"></i>
-    </div>
-  
-
-  
+  <div class="post-header CENTER">
+   
   <div class="toolbox">
     <a class="toolbox-entry" href="/">
       <span class="toolbox-entry-text">盒子</span>
@@ -154,99 +150,110 @@ ga('send', 'pageview');
   </div>
 
 
+</div>
 
-  <div class="box-blog-info">
-    <a class="avatar" href="/">
-      <img src="/blog/images/avatar.jpg" alt="">
-    </a>
-    <div class="info">
-      <h3 class="name" style="font-family: calligraffittiregular">
-        TanlentBaby&#39;s Blog
-      </h3>
-      <div class="slogan">
-        Find the bug of the world
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#切换阿里云yum源"><span class="toc-text">切换阿里云yum源</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-yum-源" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">yum 源</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.01.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>tanlent baby</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="切换阿里云yum源"><a href="#切换阿里云yum源" class="headerlink" title="切换阿里云yum源"></a>切换阿里云yum源</h3><ul>
+<li>CentOS7</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd  /etc/yum.repos.d/</span><br><span class="line">wget  http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">mv  CentOS-Base.repo CentOS-Base.repo.bak</span><br><span class="line">mv Centos-7.repo CentOS-Base.repo</span><br><span class="line">yum install yum-fastestmirror </span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持tanlentbaby</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
       </div>
     </div>
   </div>
 
-</div>
 
-
-  <div class="post-list-box archive-body">
-    <ul class="list-post">  <li class="item-year item item-title item-title-4">
-    <a href="/blog/archives/2019" class="text-year">
-      2019
-      <i class="icon-zhu"></i>
-      
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/blog/LVS-keepalived双机双vip/">
+        <i class="icon icon-angle-left"></i>
     </a>
-  </li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/OAuth-2-0/">OAuth 2.0</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/linux-系统ctl/">linux 系统ctl</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/kubernetes之kubectl常用命令汇总/">kubernetes之kubectl常用命令汇总</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/yum-源/">yum 源</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/LVS-keepalived双机双vip/">LVS+keepalived双机双vip</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/kubernetes-部署（kubeadm-方式）/">kubernetes 部署（kubeadm 方式）</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-13</span>
-
-  
-  <a class="post-title" href="/blog/k8s-prometheus-opeartor部署/">k8s+prometheus-opeartor部署</a>
-
-
-</li>
-</ul>
+    <a class="show pull-right" href="/blog/kubernetes之kubectl常用命令汇总/">
+        <i class="icon icon-angle-right"></i>
+    </a>
   </div>
 
-  <div class="archive-footer">
-    
 
-  </div>
+
+
 </div>
 
 
-
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
 
 
 
@@ -304,6 +311,49 @@ ga('send', 'pageview');
 </div>
 
 
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: '277317290454635afa73',
+  clientSecret: '78223c859304da5e8d71bfce136d436c6ff95c37',
+  repo: 'blog-comment',
+  owner: 'tanlentbaby',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  // id: location.pathname.split('/').pop().substring(0, 49),
+  id: location.pathname,
+  admin: ['tanlentbaby'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
 
   
 

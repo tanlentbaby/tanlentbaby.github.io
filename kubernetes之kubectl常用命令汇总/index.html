@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>k8s+prometheus-opeartor部署 | TanlentBaby&#39;s Blog</title>
+  <title>kubernetes之kubectl常用命令汇总 | TanlentBaby&#39;s Blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,18 +15,18 @@
     <meta name="keywords" content="kubernetes,">
   
 
-  <meta name="description" content="机器配置   名称 hostname IP OS MEM DISK     publish/dns publish 192.165.48.103 CentOS7.6 4GB 30GB   docker-registry/lvs dockerRegistry 192.165.48.104 CentOS7.6 4GB 10GB   k8s-master1/k8s-node1/etcd1 node1 1">
+  <meta name="description" content="get 获取pod信息  123456$ kubectl get po$ kubectl get po -o wide$ kubectl get po -o wide --all-namespaces$ kubectl get po -o wide --namespace=kube-system$ kubectl get po -o wide -n kube-system$ kubectl get">
 <meta name="keywords" content="kubernetes">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s+prometheus-opeartor部署">
-<meta property="og:url" content="http://tanlent.coding.me/blog/k8s-prometheus-opeartor部署/index.html">
+<meta property="og:title" content="kubernetes之kubectl常用命令汇总">
+<meta property="og:url" content="http://tanlent.coding.me/blog/kubernetes之kubectl常用命令汇总/index.html">
 <meta property="og:site_name" content="TanlentBaby&#39;s Blog">
-<meta property="og:description" content="机器配置   名称 hostname IP OS MEM DISK     publish/dns publish 192.165.48.103 CentOS7.6 4GB 30GB   docker-registry/lvs dockerRegistry 192.165.48.104 CentOS7.6 4GB 10GB   k8s-master1/k8s-node1/etcd1 node1 1">
+<meta property="og:description" content="get 获取pod信息  123456$ kubectl get po$ kubectl get po -o wide$ kubectl get po -o wide --all-namespaces$ kubectl get po -o wide --namespace=kube-system$ kubectl get po -o wide -n kube-system$ kubectl get">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-13T15:26:48.893Z">
+<meta property="og:updated_time" content="2019-01-13T15:30:03.959Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s+prometheus-opeartor部署">
-<meta name="twitter:description" content="机器配置   名称 hostname IP OS MEM DISK     publish/dns publish 192.165.48.103 CentOS7.6 4GB 30GB   docker-registry/lvs dockerRegistry 192.165.48.104 CentOS7.6 4GB 10GB   k8s-master1/k8s-node1/etcd1 node1 1">
+<meta name="twitter:title" content="kubernetes之kubectl常用命令汇总">
+<meta name="twitter:description" content="get 获取pod信息  123456$ kubectl get po$ kubectl get po -o wide$ kubectl get po -o wide --all-namespaces$ kubectl get po -o wide --namespace=kube-system$ kubectl get po -o wide -n kube-system$ kubectl get">
 
   
 
@@ -155,15 +155,15 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#机器配置"><span class="toc-text">机器配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装基础环境"><span class="toc-text">安装基础环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装k8s"><span class="toc-text">安装k8s</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装Prometheus-Opeartor"><span class="toc-text">安装Prometheus-Opeartor</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#get"><span class="toc-text">get</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#describe"><span class="toc-text">describe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#create"><span class="toc-text">create</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#replace"><span class="toc-text">replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#patch"><span class="toc-text">patch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#edit"><span class="toc-text">edit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#delete"><span class="toc-text">delete</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#批量删除"><span class="toc-text">批量删除</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-k8s-prometheus-opeartor部署" class="article article-type-post" itemprop="blogPost">
+   <article id="post-kubernetes之kubectl常用命令汇总" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">k8s+prometheus-opeartor部署</h1>
+    <h1 class="post-title">kubernetes之kubectl常用命令汇总</h1>
 
     <div class="article-meta">
       <span>
@@ -201,104 +201,48 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h4 id="机器配置"><a href="#机器配置" class="headerlink" title="机器配置"></a>机器配置</h4><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>hostname</th>
-<th>IP</th>
-<th>OS</th>
-<th>MEM</th>
-<th>DISK</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>publish/dns</td>
-<td>publish</td>
-<td>192.165.48.103</td>
-<td>CentOS7.6</td>
-<td>4GB</td>
-<td>30GB</td>
-</tr>
-<tr>
-<td>docker-registry/lvs</td>
-<td>dockerRegistry</td>
-<td>192.165.48.104</td>
-<td>CentOS7.6</td>
-<td>4GB</td>
-<td>10GB</td>
-</tr>
-<tr>
-<td>k8s-master1/k8s-node1/etcd1</td>
-<td>node1</td>
-<td>192.165.48.105</td>
-<td>CentOS7.6</td>
-<td>4GB</td>
-<td>10GB</td>
-</tr>
-<tr>
-<td>k8s-master2/k8s-node2/etcd2</td>
-<td>node2</td>
-<td>192.165.48.106</td>
-<td>CentOS7.6</td>
-<td>4GB</td>
-<td>10GB</td>
-</tr>
-<tr>
-<td>VIP1</td>
-<td>漂移</td>
-<td>192.168.48.201</td>
-<td>–</td>
-<td>–</td>
-<td>– </td>
-</tr>
-<tr>
-<td>VIP2</td>
-<td>漂移</td>
-<td>192.168.48.202</td>
-<td>–</td>
-<td>–</td>
-<td>– </td>
-</tr>
-</tbody>
-</table>
-<h4 id="安装基础环境"><a href="#安装基础环境" class="headerlink" title="安装基础环境"></a>安装基础环境</h4><blockquote>
-<p>配置阿里yum源</p>
+      <h4 id="get"><a href="#get" class="headerlink" title="get"></a>get</h4><blockquote>
+<p>获取pod信息</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cd  /etc/yum.repos.d/</span><br><span class="line">$ wget  http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">$ mv  CentOS-Base.repo CentOS-Base.repo.bak</span><br><span class="line">$ mv Centos-7.repo CentOS-Base.repo</span><br><span class="line">$ yum install yum-fastestmirror -y</span><br><span class="line">$ yum clean all</span><br><span class="line">$ yum makecache</span><br><span class="line">$ yum update -y</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po</span><br><span class="line">$ kubectl get po -o wide</span><br><span class="line">$ kubectl get po -o wide --all-namespaces</span><br><span class="line">$ kubectl get po -o wide --namespace=kube-system</span><br><span class="line">$ kubectl get po -o wide -n kube-system</span><br><span class="line">$ kubectl get pods -n monitoring | grep -v Running</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>安装git、curl、pip、gcc gcc-c++、fabric模块(仅publish机器)</p>
+<p>获取namespace、rc、svc等信息</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ yum -y install git curl epel-release python-pip</span><br><span class="line">$ yum -y install gcc gcc-c++</span><br><span class="line">$ pip install --upgrade pip</span><br><span class="line">$ pip install Fabric==1.14.0</span><br><span class="line">$ yum -y install python-paramiko</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get namespace</span><br><span class="line">$ kubectl get rc</span><br><span class="line">$ kubectl get nodes</span><br><span class="line">$ kubectl get svc</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>更改网卡名称</p>
+<p>获取一些更具体的信息，可以通过使用选项“-o” 如：</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/default/grub</span><br><span class="line">GRUB_CMDLINE_LINUX 加上 net.ifnames=0 biosdevname=0</span><br><span class="line">$ grub2-mkconfig -o /boot/grub2/grub.cfg</span><br><span class="line">$ cd /etc/sysconfig/network-scripts/</span><br><span class="line">文件名称及NAME=eth0、DEVICE=eth0更改为ifcfg-eth0</span><br><span class="line">$ reboot</span><br></pre></td></tr></table></figure>
-<h4 id="安装k8s"><a href="#安装k8s" class="headerlink" title="安装k8s"></a>安装k8s</h4><ul>
-<li><p>下载自动化脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/git &amp; cd ~/git</span><br><span class="line">$ git clone https://github.com/tanlentbaby/install_k8s.git</span><br><span class="line">$ cd install_k8s</span><br><span class="line">$ mv ls-files-xxxx.gz .  (提前下载好压缩包)</span><br><span class="line">$ tar zxvf ls-files-xxxx.gz</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi fabfile.py</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动并安装k8s</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="安装Prometheus-Opeartor"><a href="#安装Prometheus-Opeartor" class="headerlink" title="安装Prometheus-Opeartor"></a>安装Prometheus-Opeartor</h4><ul>
-<li><p>下载自动化脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/git</span><br><span class="line">$ git clone https://github.com/coreos/prometheus-operator.git</span><br><span class="line">或：</span><br><span class="line">$ wget https://github.com/coreos/prometheus-operator/archive/v0.23.0.tar.gz并解压 （我用的是这种）</span><br><span class="line"></span><br><span class="line">$ tar zxvf v0.23.0.tar.gz</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create namespace monitoring</span><br><span class="line">$ cd prometheus-operator-0.23.0</span><br><span class="line">$ vim bundle.yaml (将三处namespace更改为上文创建的monitoring)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f bundle.yaml</span><br><span class="line">$ kubectl apply -f contrib/kube-prometheus/manifests/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>验证</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get all -n monitoring</span><br></pre></td></tr></table></figure></li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po xxxx -o yaml  -n xxxx</span><br><span class="line">$ kubectl get po xxxx -o json  -n xxxx</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用”-o=custom-columns=“定义直接获取指定内容的值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get po xxxx -o=custom-columns=LABELS:.xxx.xxx.xxx</span><br></pre></td></tr></table></figure>
+<h4 id="describe"><a href="#describe" class="headerlink" title="describe"></a>describe</h4><blockquote>
+<p>获取某个resource的集群信息</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl describe pod xxx</span><br></pre></td></tr></table></figure>
+<h4 id="create"><a href="#create" class="headerlink" title="create"></a>create</h4><blockquote>
+<p>根据文件或输入创建集群resource</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl create -f xxxx.yaml</span><br></pre></td></tr></table></figure>
+<h4 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h4><blockquote>
+<p>对已有资源进行更新、替换</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl replace -f xxxx.yaml</span><br></pre></td></tr></table></figure>
+<h4 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h4><blockquote>
+<p>如果一个容器已经在运行，这时需要对一些容器属性进行修改，又不想删除容器，或不方便通过replace的方式进行更新。kubernetes还提供了一种在容器运行时，直接对容器进行修改的方式，就是patch命令。例如：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl patch pod xxxx -p &apos;&#123;&quot;metadata&quot;:&#123;&quot;labels&quot;:&#123;&quot;app&quot;:&quot;nginx-3&quot;&#125;&#125;&#125;&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="edit"><a href="#edit" class="headerlink" title="edit"></a>edit</h4><blockquote>
+</blockquote>
+<h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><blockquote>
+<p>强制删除</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete pod NAME --grace-period=0 --force</span><br></pre></td></tr></table></figure>
+<h4 id="批量删除"><a href="#批量删除" class="headerlink" title="批量删除"></a>批量删除</h4><blockquote>
+<p>删除状态为Evicted的pod</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods | grep Evicted | awk &apos;&#123;print $1&#125;&apos; | xargs kubectl delete pod</span><br></pre></td></tr></table></figure>
 
     
   </div>
@@ -336,10 +280,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="hide pull-left" href="/blog/">
+    <a class="show pull-left" href="/blog/yum-源/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/blog/kubernetes-部署（kubeadm-方式）/">
+    <a class="show pull-right" href="/blog/linux-系统ctl/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
