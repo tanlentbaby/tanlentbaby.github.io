@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="TanlentBaby&#39;s Blog">
 <meta property="og:description" content="机器配置   名称 hostname IP OS MEM DISK     publish/dns publish 192.165.48.103 CentOS7.6 4GB 30GB   docker-registry/lvs dockerRegistry 192.165.48.104 CentOS7.6 4GB 10GB   k8s-master1/k8s-node1/etcd1 node1 1">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-13T14:56:11.310Z">
+<meta property="og:updated_time" content="2019-01-13T15:19:52.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s+prometheus-opeartor部署">
 <meta name="twitter:description" content="机器配置   名称 hostname IP OS MEM DISK     publish/dns publish 192.165.48.103 CentOS7.6 4GB 30GB   docker-registry/lvs dockerRegistry 192.165.48.104 CentOS7.6 4GB 10GB   k8s-master1/k8s-node1/etcd1 node1 1">
@@ -251,8 +251,6 @@ ga('send', 'pageview');
 <td>192.168.48.201</td>
 <td>–</td>
 <td>–</td>
-<td>–</td>
-<td>–</td>
 <td>– </td>
 </tr>
 <tr>
@@ -261,9 +259,7 @@ ga('send', 'pageview');
 <td>192.168.48.202</td>
 <td>–</td>
 <td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
+<td>– </td>
 </tr>
 </tbody>
 </table>
@@ -281,7 +277,7 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/default/grub</span><br><span class="line">GRUB_CMDLINE_LINUX 加上 net.ifnames=0 biosdevname=0</span><br><span class="line">$ grub2-mkconfig -o /boot/grub2/grub.cfg</span><br><span class="line">$ cd /etc/sysconfig/network-scripts/</span><br><span class="line">文件名称及NAME=eth0、DEVICE=eth0更改为ifcfg-eth0</span><br><span class="line">$ reboot</span><br></pre></td></tr></table></figure>
 <h4 id="安装k8s"><a href="#安装k8s" class="headerlink" title="安装k8s"></a>安装k8s</h4><ul>
 <li><p>下载自动化脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/git &amp; cd ~/git</span><br><span class="line">$ git clone https://github.com/yonyoucloud/install_k8s.git</span><br><span class="line">$ cd install_k8s</span><br><span class="line">$ mv ls-files-xxxx.gz .  (提前下载好压缩包)</span><br><span class="line">$ tar zxvf ls-files-xxxx.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir ~/git &amp; cd ~/git</span><br><span class="line">$ git clone https://github.com/tanlentbaby/install_k8s.git</span><br><span class="line">$ cd install_k8s</span><br><span class="line">$ mv ls-files-xxxx.gz .  (提前下载好压缩包)</span><br><span class="line">$ tar zxvf ls-files-xxxx.gz</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改配置文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi fabfile.py</span><br></pre></td></tr></table></figure>
