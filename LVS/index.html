@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>LVS | TanlentBaby&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="linux,">
+  
+
+  <meta name="description" content="LVS相关术语 DS：Director Server。指的是前端负载均衡器节点。 RS：Real Server。后端真实的工作服务器。 VIP：向外部直接面向用户请求，作为用户请求的目标的IP地址。 DIP：Director Server IP，主要用于和内部主机通讯的IP地址。 RIP：Real Server IP，后端服务器的IP地址。 CIP：Client IP，访问客户端的IP地址。LVS">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LVS">
+<meta property="og:url" content="http://tanlent.coding.me/blog/LVS/index.html">
+<meta property="og:site_name" content="TanlentBaby&#39;s Blog">
+<meta property="og:description" content="LVS相关术语 DS：Director Server。指的是前端负载均衡器节点。 RS：Real Server。后端真实的工作服务器。 VIP：向外部直接面向用户请求，作为用户请求的目标的IP地址。 DIP：Director Server IP，主要用于和内部主机通讯的IP地址。 RIP：Real Server IP，后端服务器的IP地址。 CIP：Client IP，访问客户端的IP地址。LVS">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-13T16:05:32.726Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LVS">
+<meta name="twitter:description" content="LVS相关术语 DS：Director Server。指的是前端负载均衡器节点。 RS：Real Server。后端真实的工作服务器。 VIP：向外部直接面向用户请求，作为用户请求的目标的IP地址。 DIP：Director Server IP，主要用于和内部主机通讯的IP地址。 RIP：Real Server IP，后端服务器的IP地址。 CIP：Client IP，访问客户端的IP地址。LVS">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/blog/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/archives/" rel="noopener noreferrer" target="_self">
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/project/" rel="noopener noreferrer" target="_self">
+            项目
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/category/" rel="noopener noreferrer" target="_self">
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/tag/" rel="noopener noreferrer" target="_self">
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/search/" rel="noopener noreferrer" target="_self">
+            搜索
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a class="CIRCLE" href="/blog/about/" rel="noopener noreferrer" target="_self">
+            关于
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS相关术语"><span class="toc-text">LVS相关术语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS-NAT原理和特点"><span class="toc-text">LVS/NAT原理和特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS-DR原理和特点"><span class="toc-text">LVS/DR原理和特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS-Tun原理和特点"><span class="toc-text">LVS/Tun原理和特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS的八种调度算法"><span class="toc-text">LVS的八种调度算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践LVS的NAT模式"><span class="toc-text">实践LVS的NAT模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实验环境"><span class="toc-text">实验环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装和配置"><span class="toc-text">安装和配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#测试LVS的效果"><span class="toc-text">测试LVS的效果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实践LVS的DR模式"><span class="toc-text">实践LVS的DR模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实验环境-1"><span class="toc-text">实验环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Director-上配置脚本"><span class="toc-text">Director 上配置脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#在2台-rs-上配置脚本"><span class="toc-text">在2台 rs 上配置脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实验测试"><span class="toc-text">实验测试</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LVS结合keepalive"><span class="toc-text">LVS结合keepalive</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实验环境-2"><span class="toc-text">实验环境</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装系统软件"><span class="toc-text">安装系统软件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Real-server-nginx服务的2个节点安装"><span class="toc-text">Real server + nginx服务的2个节点安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#设置配置脚本"><span class="toc-text">设置配置脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#启动keepalive"><span class="toc-text">启动keepalive</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-LVS" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">LVS</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.01.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>tanlent baby</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4 id="LVS相关术语"><a href="#LVS相关术语" class="headerlink" title="LVS相关术语"></a>LVS相关术语</h4><ul>
+<li>DS：Director Server。指的是前端负载均衡器节点。</li>
+<li>RS：Real Server。后端真实的工作服务器。</li>
+<li>VIP：向外部直接面向用户请求，作为用户请求的目标的IP地址。</li>
+<li>DIP：Director Server IP，主要用于和内部主机通讯的IP地址。</li>
+<li>RIP：Real Server IP，后端服务器的IP地址。</li>
+<li>CIP：Client IP，访问客户端的IP地址。<h4 id="LVS-NAT原理和特点"><a href="#LVS-NAT原理和特点" class="headerlink" title="LVS/NAT原理和特点"></a>LVS/NAT原理和特点</h4><blockquote>
+<p>LVS-NAT模型的实现原理</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>当用户请求到达Director Server，此时请求的数据报文会先到内核空间的PREROUTING链。 此时报文的源IP为CIP，目标IP为VIP</li>
+<li>PREROUTING检查发现数据包的目标IP是本机，将数据包送至INPUT链</li>
+<li>PVS比对数据包请求的服务是否为集群服务，若是，修改数据包的目标IP地址为后端服务器IP，然后将数据包发至POSTROUTING链。 此时报文的源IP为CIP，目标IP为RIP</li>
+<li>POSTROUTING链通过选路，将数据包发送给Real Server</li>
+<li>Real Server比对发现目标为自己的IP，开始构建响应报文发回给Director Server。 此时报文的源IP为RIP，目标IP为CIP</li>
+<li>Director Server在响应客户端前，此时会将源IP地址修改为自己的VIP地址，然后响应给客户端。 此时报文的源IP为VIP，目标IP为CIP<blockquote>
+<p>LVS-NAT模型的特性</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>RS应该使用私有地址，RS的网关必须指向DIP</li>
+<li>DIP和RIP必须在同一个网段内</li>
+<li>请求和响应报文都需要经过Director Server，高负载场景中，Director Server易成为性能瓶颈</li>
+<li>支持端口映射</li>
+<li>RS可以使用任意操作系统</li>
+<li>缺陷：对Director Server压力会比较大，请求和响应都需经过director server<h4 id="LVS-DR原理和特点"><a href="#LVS-DR原理和特点" class="headerlink" title="LVS/DR原理和特点"></a>LVS/DR原理和特点</h4><blockquote>
+<p>LVS/DR模型的原理</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>当用户请求到达Director Server，此时请求的数据报文会先到内核空间的PREROUTING链。 此时报文的源IP为CIP，目标IP为VIP</li>
+<li>PREROUTING检查发现数据包的目标IP是本机，将数据包送至INPUT链</li>
+<li>IPVS比对数据包请求的服务是否为集群服务，若是，将请求报文中的源MAC地址修改为DIP的MAC地址，将目标MAC地址修改RIP的MAC地址，然后将数据包发至POSTROUTING链。 此时的源IP和目的IP均未修改，仅修改了源MAC地址为DIP的MAC地址，目标MAC地址为RIP的MAC地址</li>
+<li>由于DS和RS在同一个网络中，所以是通过二层来传输。POSTROUTING链检查目标MAC地址为RIP的MAC地址，那么此时数据包将会发至Real Server。</li>
+<li>RS发现请求报文的MAC地址是自己的MAC地址，就接收此报文。处理完成之后，将响应报文通过lo接口传送给eth0网卡然后向外发出。 此时的源IP地址为VIP，目标IP为CIP</li>
+<li>响应报文最终送达至客户端<blockquote>
+<p>LVS/DR模型的特点</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>特点1：保证前端路由将目标地址为VIP报文统统发给Director Server，而不是RS</li>
+<li>RS可以使用私有地址；也可以是公网地址，如果使用公网地址，此时可以通过互联网对RIP进行直接访问</li>
+<li>RS跟Director Server必须在同一个物理网络中</li>
+<li>所有的请求报文经由Director Server，但响应报文必须不能进过Director Server</li>
+<li>不支持地址转换，也不支持端口映射</li>
+<li>RS可以是大多数常见的操作系统</li>
+<li>RS的网关绝不允许指向DIP(因为我们不允许他经过director)</li>
+<li>RS上的lo接口配置VIP的IP地址</li>
+<li>缺陷：RS和DS必须在同一机房中<blockquote>
+<p>特点1的解决方案：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 在前端路由器做静态地址路由绑定，将对于VIP的地址仅路由到Director Server</span><br><span class="line">- 存在问题：用户未必有路由操作权限，因为有可能是运营商提供的，所以这个方法未必实用</span><br><span class="line">- arptables：在arp的层次上实现在ARP解析时做防火墙规则，过滤RS响应ARP请求。这是由iptables提供的</span><br><span class="line">- 修改RS上内核参数（arp_ignore和arp_announce）将RS上的VIP配置在lo接口的别名上，并限制其不能响应对VIP地址解析请求</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h4 id="LVS-Tun原理和特点"><a href="#LVS-Tun原理和特点" class="headerlink" title="LVS/Tun原理和特点"></a>LVS/Tun原理和特点</h4><blockquote>
+<p>LVS/Tun模型的实现原理</p>
+<ol>
+<li>当用户请求到达Director Server，此时请求的数据报文会先到内核空间的PREROUTING链。 此时报文的源IP为CIP，目标IP为VIP</li>
+<li>PREROUTING检查发现数据包的目标IP是本机，将数据包送至INPUT链</li>
+<li>IPVS比对数据包请求的服务是否为集群服务，若是，在请求报文的首部再次封装一层IP报文，封装源IP为为DIP，目标IP为RIP。然后发至POSTROUTING链。 此时源IP为DIP，目标IP为RIP</li>
+<li>POSTROUTING链根据最新封装的IP报文，将数据包发至RS（因为在外层封装多了一层IP首部，所以可以理解为此时通过隧道传输）。 此时源IP为DIP，目标IP为RIP</li>
+<li>RS接收到报文后发现是自己的IP地址，就将报文接收下来，拆除掉最外层的IP后，会发现里面还有一层IP首部，而且目标是自己的lo接口VIP，那么此时RS开始处理此请求，处理完成之后，通过lo接口送给eth0网卡，然后向外传递。 此时的源IP地址为VIP，目标IP为CIP</li>
+<li>响应报文最终送达至客户端<br>LVS/Tun模型的特点</li>
+</ol>
+<ul>
+<li>RIP、VIP、DIP全是公网地址</li>
+<li>RS的网关不会也不可能指向DIP</li>
+<li>所有的请求报文经由Director Server，但响应报文必须不能进过Director Server</li>
+<li>不支持端口映射</li>
+<li>RS的系统必须支持隧道</li>
+</ul>
+</blockquote>
+<h4 id="LVS的八种调度算法"><a href="#LVS的八种调度算法" class="headerlink" title="LVS的八种调度算法"></a>LVS的八种调度算法</h4><ul>
+<li>轮叫调度 rr<blockquote>
+<p>这种算法是最简单的，就是按依次循环的方式将请求调度到不同的服务器上，该算法最大的特点就是简单。轮询算法假设所有的服务器处理请求的能力都是一样的，调度器会将所有的请求平均分配给每个真实服务器，不管后端 RS 配置和处理能力，非常均衡地分发下去。</p>
+</blockquote>
+</li>
+<li>加权轮叫 wrr<blockquote>
+<p>这种算法比 rr 的算法多了一个权重的概念，可以给 RS 设置权重，权重越高，那么分发的请求数越多，权重的取值范围 0 – 100。主要是对rr算法的一种优化和补充， LVS 会考虑每台服务器的性能，并给每台服务器添加要给权值，如果服务器A的权值为1，服务器B的权值为2，则调度到服务器B的请求会是服务器A的2倍。权值越高的服务器，处理的请求越多。</p>
+</blockquote>
+</li>
+<li>最少链接 lc<blockquote>
+<p>这个算法会根据后端 RS 的连接数来决定把请求分发给谁，比如 RS1 连接数比 RS2 连接数少，那么请求就优先发给 RS1</p>
+</blockquote>
+</li>
+<li>加权最少链接 wlc<blockquote>
+<p>这个算法比 lc 多了一个权重的概念</p>
+</blockquote>
+</li>
+<li>基于局部性的最少连接调度算法 lblc<blockquote>
+<p>这个算法是请求数据包的目标 IP 地址的一种调度算法，该算法先根据请求的目标 IP 地址寻找最近的该目标 IP 地址所有使用的服务器，如果这台服务器依然可用，并且有能力处理该请求，调度器会尽量选择相同的服务器，否则会继续选择其它可行的服务器</p>
+</blockquote>
+</li>
+<li>复杂的基于局部性最少的连接算法 lblcr<blockquote>
+<p>记录的不是要给目标 IP 与一台服务器之间的连接记录，它会维护一个目标 IP 到一组服务器之间的映射关系，防止单点服务器负载过高。</p>
+</blockquote>
+</li>
+<li>目标地址散列调度算法 dh<blockquote>
+<p>该算法是根据目标 IP 地址通过散列函数将目标 IP 与服务器建立映射关系，出现服务器不可用或负载过高的情况下，发往该目标 IP 的请求会固定发给该服务器。</p>
+</blockquote>
+</li>
+<li>源地址散列调度算法 sh<blockquote>
+<p>与目标地址散列调度算法类似，但它是根据源地址散列算法进行静态分配固定的服务器资源。</p>
+</blockquote>
+<h4 id="实践LVS的NAT模式"><a href="#实践LVS的NAT模式" class="headerlink" title="实践LVS的NAT模式"></a>实践LVS的NAT模式</h4><h5 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h5><blockquote>
+<p>三台服务器，一台作为 director，两台作为 real server，director 有一个外网网卡(172.16.254.200) 和一个内网ip(192.168.0.8)，两个 real server 上只有内网 ip (192.168.0.18) 和 (192.168.0.28)，并且需要把两个 real server 的内网网关设置为 director 的内网 ip(192.168.0.8)</p>
+</blockquote>
+<h5 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h5><blockquote>
+<p>两个 real server 上都安装 nginx 服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y nginx</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>Director 上安装 ipvsadm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y ipvsadm</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Director 上编辑 nat 实现脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/local/sbin/lvs_nat.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>编辑写入如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line"># director服务器上开启路由转发功能:</span><br><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line"># 关闭 icmp 的重定向</span><br><span class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/all/send_redirects</span><br><span class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/default/send_redirects</span><br><span class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/eth0/send_redirects</span><br><span class="line">echo 0 &gt; /proc/sys/net/ipv4/conf/eth1/send_redirects</span><br><span class="line"># director设置 nat 防火墙</span><br><span class="line">iptables -t nat -F</span><br><span class="line">iptables -t nat -X</span><br><span class="line">iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j MASQUERADE</span><br><span class="line"># director设置 ipvsadm</span><br><span class="line">IPVSADM=&apos;/sbin/ipvsadm&apos;</span><br><span class="line">$IPVSADM -C</span><br><span class="line">$IPVSADM -A -t 172.16.254.200:80 -s wrr</span><br><span class="line">$IPVSADM -a -t 172.16.254.200:80 -r 192.168.0.18:80 -m -w 1</span><br><span class="line">$IPVSADM -a -t 172.16.254.200:80 -r 192.168.0.28:80 -m -w 1</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>保存后，在 Director 上直接运行这个脚本就可以完成 lvs/nat 的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /bin/bash /usr/local/sbin/lvs_nat.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>查看ipvsadm设置的规则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ipvsadm -ln</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="测试LVS的效果"><a href="#测试LVS的效果" class="headerlink" title="测试LVS的效果"></a>测试LVS的效果</h5><blockquote>
+<p>通过浏览器测试2台机器上的web内容 <a href="http://172.16.254.200" target="_blank" rel="noopener">http://172.16.254.200</a> 。为了区分开，我们可以把 nginx 的默认页修改一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;rs1rs1&quot; &gt;/usr/share/nginx/html/index.html</span><br><span class="line">$ echo &quot;rs2rs2&quot; &gt;/usr/share/nginx/html/index.html</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="实践LVS的DR模式"><a href="#实践LVS的DR模式" class="headerlink" title="实践LVS的DR模式"></a>实践LVS的DR模式</h4><h5 id="实验环境-1"><a href="#实验环境-1" class="headerlink" title="实验环境"></a>实验环境</h5><blockquote>
+<p>三台机器：</p>
+<ul>
+<li>Director节点：  (eth0 192.168.0.8  vip eth0:0 192.168.0.38)</li>
+<li>Real server1： (eth0 192.168.0.18 vip lo:0 192.168.0.38)</li>
+<li>Real server2： (eth0 192.168.0.28 vip lo:0 192.168.0.38)</li>
+</ul>
+</blockquote>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><blockquote>
+<p>两个 real server 上都安装 nginx 服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y nginx</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Director 上安装 ipvsadm<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y ipvsadm</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="Director-上配置脚本"><a href="#Director-上配置脚本" class="headerlink" title="Director 上配置脚本"></a>Director 上配置脚本</h5><blockquote>
+<p>修改配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/local/sbin/lvs_dr.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line">echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line">ipv=/sbin/ipvsadm</span><br><span class="line">vip=192.168.0.38</span><br><span class="line">rs1=192.168.0.18</span><br><span class="line">rs2=192.168.0.28</span><br><span class="line">ifconfig eth0:0 down</span><br><span class="line">ifconfig eth0:0 $vip broadcast $vip netmask 255.255.255.255 up</span><br><span class="line">route add -host $vip dev eth0:0</span><br><span class="line">$ipv -C</span><br><span class="line">$ipv -A -t $vip:80 -s wrr </span><br><span class="line">$ipv -a -t $vip:80 -r $rs1:80 -g -w 3</span><br><span class="line">$ipv -a -t $vip:80 -r $rs2:80 -g -w 1</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>执行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash /usr/local/sbin/lvs_dr.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="在2台-rs-上配置脚本"><a href="#在2台-rs-上配置脚本" class="headerlink" title="在2台 rs 上配置脚本"></a>在2台 rs 上配置脚本</h5><blockquote>
+<p>修改配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/local/sbin/lvs_dr_rs.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line">vip=192.168.0.38</span><br><span class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</span><br><span class="line">route add -host $vip lo:0</span><br><span class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>rs 上分别执行脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash /usr/local/sbin/lvs_dr_rs.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="实验测试"><a href="#实验测试" class="headerlink" title="实验测试"></a>实验测试</h5><blockquote>
+<p>测试方式同上，浏览器访问 <a href="http://192.168.0.38" target="_blank" rel="noopener">http://192.168.0.38</a></p>
+</blockquote>
+<h4 id="LVS结合keepalive"><a href="#LVS结合keepalive" class="headerlink" title="LVS结合keepalive"></a>LVS结合keepalive</h4><blockquote>
+<p>LVS可以实现负载均衡，但是不能够进行健康检查，比如一个rs出现故障，LVS 仍然会把请求转发给故障的rs服务器，这样就会导致请求的无效性。keepalive 软件可以进行健康检查，而且能同时实现 LVS 的高可用性，解决 LVS 单点故障的问题，其实 keepalive 就是为 LVS 而生的。</p>
+</blockquote>
+<h5 id="实验环境-2"><a href="#实验环境-2" class="headerlink" title="实验环境"></a>实验环境</h5><blockquote>
+<p>4台节点</p>
+<ul>
+<li>Keepalived1 + lvs1(Director1)：192.168.0.48</li>
+<li>Keepalived2 + lvs2(Director2)：192.168.0.58</li>
+<li>Real server1：192.168.0.18</li>
+<li>Real server2：192.168.0.28</li>
+<li>IP: 192.168.0.38</li>
+</ul>
+</blockquote>
+<h5 id="安装系统软件"><a href="#安装系统软件" class="headerlink" title="安装系统软件"></a>安装系统软件</h5><blockquote>
+<p>Lvs + keepalived的2个节点安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install ipvsadm keepalived -y</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="Real-server-nginx服务的2个节点安装"><a href="#Real-server-nginx服务的2个节点安装" class="headerlink" title="Real server + nginx服务的2个节点安装"></a>Real server + nginx服务的2个节点安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum install epel-release -y</span><br><span class="line">$ yum install nginx -y</span><br></pre></td></tr></table></figure>
+<h5 id="设置配置脚本"><a href="#设置配置脚本" class="headerlink" title="设置配置脚本"></a>设置配置脚本</h5><blockquote>
+<p>Real server节点2台配置脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/local/sbin/lvs_dr_rs.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line">vip=192.168.0.38</span><br><span class="line">ifconfig lo:0 $vip broadcast $vip netmask 255.255.255.255 up</span><br><span class="line">route add -host $vip lo:0</span><br><span class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br><span class="line">echo &quot;1&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">echo &quot;2&quot; &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>2节点rs 上分别执行脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash /usr/local/sbin/lvs_dr_rs.sh</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>keepalived节点配置(2节点)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface eth0</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.0.38</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.0.38 80 &#123;</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind DR</span><br><span class="line">    persistence_timeout 0</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 192.168.0.18 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 10</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">            connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    real_server 192.168.0.28 80 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">        TCP_CHECK &#123;</span><br><span class="line">            connect_timeout 10</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 3</span><br><span class="line">            connect_port 80</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>从节点( BACKUP )配置文件</p>
+</blockquote>
+<p>拷贝主节点的配置文件keepalived.conf，然后修改如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">state MASTER -&gt; state BACKUP</span><br><span class="line">priority 100 -&gt; priority 90</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>keepalived的2个节点执行如下命令，开启转发功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="启动keepalive"><a href="#启动keepalive" class="headerlink" title="启动keepalive"></a>启动keepalive</h5><blockquote>
+<p>先主后从分别启动keepalive<br>service keepalived start</p>
+</blockquote>
+
+    
+  </div>
+
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持tanlentbaby</div>
+        <ul>
+        
+          <li class="item">
+            
+              <span>微信扫一扫</span>
+            
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            
+              <span>支付宝扫一扫</span>
+            
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/blog/OAuth-2-0/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/blog/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/archives/" rel="noopener noreferrer" target="_self">
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/project/" rel="noopener noreferrer" target="_self">
+              项目
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/category/" rel="noopener noreferrer" target="_self">
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/tag/" rel="noopener noreferrer" target="_self">
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/search/" rel="noopener noreferrer" target="_self">
+              搜索
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a class="CIRCLE" href="/blog/about/" rel="noopener noreferrer" target="_self">
+              关于
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+<!-- Gitalk评论插件通用代码 -->
+<div id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+const gitalk = new Gitalk({
+  clientID: '277317290454635afa73',
+  clientSecret: '78223c859304da5e8d71bfce136d436c6ff95c37',
+  repo: 'blog-comment',
+  owner: 'tanlentbaby',
+  // 在这里设置一下截取前50个字符串, 这是因为 github 对 label 的长度有了要求, 如果超过
+  // 50个字符串则会报错.
+  // id: location.pathname.split('/').pop().substring(0, 49),
+  id: location.pathname,
+  admin: ['tanlentbaby'],
+  // facebook-like distraction free mode
+  distractionFreeMode: false
+})
+gitalk.render('gitalk-container')
+</script>
+<!-- Gitalk代码结束 -->
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
